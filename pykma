@@ -1,0 +1,145 @@
+#!/bin/python3
+""" PYthon Keyboard Member A++ - DragonFly Plug-in fork, ver. 1.1
+
+## Commands
+update, upd, init   - update cache
+ls, cat             - get cache (cooked/raw)
+add <opt>           - set cache value
+addt <opt>          - set cache value (+type)
+lsk, lk             - list key (cache)
+lsh, lh             - list hotkey
+xset, xkb           - list key (X11 engene)
+h, help             - help page
+
+## Pykma output
+~/.cache/pykma.cache structure: `{}` or `{"kbd": <kbd>, ".dbg": true, "layouts": [[<layout>, <shortcut>],]}`
+~/.cache/pykma.out: (see xset)
+
+# DFP
+ `#{pykma}`, `#{pykmah}`, `#{pykmax}` - see pykma's `lk`, `lh`, `xkb`
+
+"""
+
+def main(opts, args):
+	"Main method"
+	if not len(args): args.append("")
+	import json
+	from os.path import expanduser as os_xu
+	FILE=os_xu("~/.cache/pykma.cache")
+	SH_FILE=os_xu("~/.cache/pykma.out")
+	LAYOUTS=[["ru", "ё"], ["en", "`"], ["ru", "ё"]]
+	DEFAULT_CACHE = {"kbd": 'en'}
+
+	try:
+		f = open(FILE, "x")
+		f.write(json.dumps({}))
+		f.close()
+		return
+	except:
+		pass
+
+	with open(FILE, "r") as f:
+		cache = json.loads(f.read())
+		cache_old = cache.copy()
+		kbd = cache.get("kbd", "en")
+
+	match args[0]:
+		case "sw":
+			with open(FILE, "w") as f:
+				if cache.get("layouts", None):
+					LAYOUTS = cache["layouts"].copy()
+					#LAYOUTS = [list(elm) for elm in LAYOUTS]
+					LAYOUTS.append(LAYOUTS[0])
+				SUB = [elm[0] for elm in LAYOUTS]
+				if kbd in SUB:
+					kbd = SUB[SUB.index(kbd)+1]
+				cache["kbd"] = kbd
+				f.write(json.dumps(cache))
+
+		case "update" | "upd" | "init":
+			try:
+				with open(FILE, "r") as f:
+					cache = json.loads(f.read())
+			except:
+				with open(FILE, "w") as f:
+					f.write(json.dumps(DEFAULT_CACHE.copy()))
+
+		case "add":
+			if len(args) < 3: return
+			with open(FILE, "r") as f:
+				cache = json.loads(f.read())
+			with open(FILE, "w") as f:
+				cache[args[1]] = args[2]
+				f.write(json.dumps(cache))
+
+		case "addt":
+			if len(args) < 4: return
+			with open(FILE, "r") as f:
+				cache = json.loads(f.read())
+				cacheold = cache.copy()
+			with open(FILE, "w") as f:
+				try:
+					exec(f"tmp = {args[2]}('{args[3]}')", globals())
+					cache[args[1]] = tmp
+				except NameError as NameErrorFail:
+					f.write(json.dumps(cacheold))
+					print(f"NameError: {NameErrorFail}")
+				else:
+					f.write(json.dumps(cache))
+
+		case ".dbg":
+			with open(FILE, "r") as f:
+				cache = json.loads(f.read())
+				if cache.setdefault(".dbg", None):
+					print("D")
+				else:
+					print(" ")
+
+		case "xset" | "xkb":
+			import os
+			out = os.system("echo $(xset -q | grep LED | awk '{ print $	10 }') > %s" % SH_FILE)
+			with open(SH_FILE, "r") as sf:
+				sf_raw = sf.read()
+				match sf_raw[0:8]:
+					case "00000000": kbd = "en"
+					case "00001004": kbd = "ru"
+					case _: kbd = "--"
+			with open(FILE, "w") as f:
+				cache["kbd"] = kbd
+				f.write(json.dumps(cache))
+			print(f"  xset raw out: sf_raw'{sf_raw}', sf_raw[0:8]'{sf_raw[0:8]}', kbd'{kbd}' \n  xset dict-ed out: py'{cache}', json'{json.dumps(cache)}'")
+
+		case "lsk" | "lk":
+			print(kbd)
+
+		case "lsh" | "lh":
+			if not cache.get("layouts", None):
+				match kbd:
+					case "ru": print("ё")
+					case "en": print("`")
+					case _: raise ValueError
+			else:
+				LAYOUTS = cache["layouts"].copy()
+				LAYOUTS.append(cache["layouts"][0])
+				SUB0 = [elm[0] for elm in LAYOUTS]
+				SUB1 = [elm[1] for elm in LAYOUTS]
+				if kbd in SUB0:
+					hotkey = SUB1[SUB0.index(kbd)]
+				print(hotkey)
+
+		case "ls":
+			print(cache)
+
+		case "cat":
+			with open(FILE, "r") as f:
+				print(f.read())
+
+	for arg, value in opts: #arg, value
+		match arg: 
+			case "-h" | "--help": help(__name__)
+
+if __name__ == "__main__":
+	import sys, getopt
+	main(*getopt.gnu_getopt(sys.argv[1:], "hv", [
+		"help", "verbose"
+	]))

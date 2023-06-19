@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# #TMUX plugin: firefly ;
-# #TMUX flags: manual, hg;
+# #TMUX plugin: dragonfly ;
+# #TMUX flags: manual, hg ;
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$CURRENT_DIR/scripts/shared.sh"
 

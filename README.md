@@ -1,19 +1,22 @@
 # DragonFly Plug-in of tmux
-DragonFly - the other implementation of ~~letters~~ butterfly plugin
+DragonFly Plug-in, or DFP - the other implementation of ~~letters~~ butterfly plugin
+It provide: 
 
-## Install
-    See on tipical tmux manual-installed plugin (becouse mercurial)
-
-## Contents of *better*fly
-  * Menu about panel (^t)s
+## Contents of dfp
+  * interpol-dfp - quick `source tipical_tmux_plugin_helpers.sh; do_interpolate $(get_tmux_option "blah-blah-blah")`
+  * DFScreenSaver (Mod ^l) based on caca*
+  * Applets:
+  *  + #{pykma}, #{pykmah}, #{pykmax} - pykma's: layout, hotkey, x11-layout
+  *  + #{dfmenuh} - dfmenu hotkey (!IMPL)
+/*
+  * Menu about panel (^t) with $SCRIPT_DIR/apps/ ".desktop" files
+    /*
   *   + Calendar
   *   + Minishell
   *   + Libcaca
   *   + ^t hotkey
-  * Screensaver (Mod L) - libcaca
-  * PYthon Keyboard layout Member A++, ver. 1.1
-  * And other
+    */
+*/
 
-## Contents of dfp
-  * Screensaver (Mod L) - libcaca
-  * interpol1-dfp - quick `do_interpolate`
+## Install
+    See on tipical tmux manual-installed plugin (becouse mercurial)
