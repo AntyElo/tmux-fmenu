@@ -1,5 +1,6 @@
 # DragonFly Plug-in of tmux
 DragonFly Plug-in, or DFP - the other implementation of ~~letters~~ butterfly plugin
+Requite: crudini (python3-iniparse)
 It provide: 
 
 ## Contents of dfp

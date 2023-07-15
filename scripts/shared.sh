@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "    [new]" >> $CURRENT_DIR/dragonfly.log
-df_intp=(
-	"#{pykma}=#(pykma%20lk)"
-	"#{pykmah}=#(pykma%20lh)"
-	"#{pykmax}=#(pykma%20xkb)"
-	"#{dfmenu_hotkey}=!IMPL"
-)
-# Use interpol.py to interploate
+
 # topt -> tmux option
+set_topt() { tmux set -gq "$1" "$2"; }
 get_topt() {
 	local GOPT=$1
 	if [ -z "$GOPT" ]; then echo ; fi
@@ -17,14 +12,24 @@ get_topt() {
 	if [ -z "$GVAL" ]; then
 		echo "$2"
 		echo "GET2" >> $CURRENT_DIR/dragonfly.log
-	else 
+	else
 		echo "$GVAL"
 		echo "GET1" >> $CURRENT_DIR/dragonfly.log
 	fi
 }
-set_topt() { tmux set -gq "$1" "$2"; }
+
+DFMENUH=`get_topt @dfmenuh ^t`
+DFSS=`get_topt @dfss cacafire`
+DFSSH=`get_topt @dfssh ^l`
+df_intp=(
+	"#{pykma}=#(pykma%20lk)"
+	"#{pykmah}=#(pykma%20lh)"
+	"#{pykmax}=#(pykma%20xkb)"
+	"#{dfmenuh}=$DFMENUH"
+	"#{dfssh}=$DFSSH"
+) # Use interpol.py to interploate
 upd_topt() {
-	local UOPT=$1 
+	local UOPT=$1
 	local UVAL=`get_topt $1`
 	local NVAL=`interpol "${UVAL}" ${df_intp[@]}`
 	echo "UPD \"${UOPT}\" -> \"${UVAL}\"" >> $CURRENT_DIR/dragonfly.log
@@ -32,10 +37,11 @@ upd_topt() {
 	set_topt "$1" "$NVAL"
 }
 
-#DFScreenSaver
-DFSS=`get_topt @dfss cacafire`
-DFSSK=`get_topt @dfssk ^l`
-tmux bind $DFSSK "neww -t 0 'DISPLAY= $DFSS'"
+#DFMenu, DFScreenSaver
+tmux bind -N "DFMenu" -n $DFMENUH "run-shell $CURRENT_DIR/dfmenu.sh"
+tmux bind -N "DFScreanSaver (win0)" $DFSSH "neww -t 0 'DISPLAY= $DFSS'"
 
 #Pykma
-tmux bind `pykma lsh` "run pykma sw"
+tmux bind \` "run \"pykma sw\""
+tmux bind  ё "run \"pykma sw\""
+

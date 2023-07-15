@@ -43,6 +43,15 @@ def main(opts, args):
 		cache_old = cache.copy()
 		kbd = cache.get("kbd", "en")
 
+	verbose, is_en = [None for elm in range(2)]
+	for arg, value in opts: #arg, value
+		match arg: 
+			case "-h" | "--help":
+				help(__name__)
+				return
+			case "-v" | "--verbose": verbose=True
+			case "-H" | "--kbd-en": kbd="en"
+
 	match args[0]:
 		case "sw":
 			with open(FILE, "w") as f:
@@ -107,7 +116,8 @@ def main(opts, args):
 			with open(FILE, "w") as f:
 				cache["kbd"] = kbd
 				f.write(json.dumps(cache))
-			print(f"  xset raw out: sf_raw'{sf_raw}', sf_raw[0:8]'{sf_raw[0:8]}', kbd'{kbd}' \n  xset dict-ed out: py'{cache}', json'{json.dumps(cache)}'")
+			if verbose: print(f"  xset raw out: sf_raw'{sf_raw}', sf_raw[0:8]'{sf_raw[0:8]}', kbd'{kbd}' \n  xset dict-ed out: py'{cache}', json'{json.dumps(cache)}'")
+			else: print(kbd)
 
 		case "lsk" | "lk":
 			print(kbd)
@@ -124,8 +134,7 @@ def main(opts, args):
 				SUB0 = [elm[0] for elm in LAYOUTS]
 				SUB1 = [elm[1] for elm in LAYOUTS]
 				if kbd in SUB0:
-					hotkey = SUB1[SUB0.index(kbd)]
-				print(hotkey)
+					print(SUB1[SUB0.index(kbd)])
 
 		case "ls":
 			print(cache)
@@ -134,12 +143,8 @@ def main(opts, args):
 			with open(FILE, "r") as f:
 				print(f.read())
 
-	for arg, value in opts: #arg, value
-		match arg: 
-			case "-h" | "--help": help(__name__)
-
 if __name__ == "__main__":
 	import sys, getopt
-	main(*getopt.gnu_getopt(sys.argv[1:], "hv", [
-		"help", "verbose"
+	main(*getopt.gnu_getopt(sys.argv[1:], "hvH", [
+		"help", "verbose", "kbd-en"
 	]))
