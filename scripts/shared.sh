@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "    [new]" >> $CURRENT_DIR/dragonfly.log
+PATH="$PATH:$CURRENT_DIR/../bin"
+echo "PATH=$PATH">> $CURRENT_DIR/dragonfly.log
+echo "BIN interpol=$(which interpol) pykma=$(which pykma) crudini=$(which crudini)">> $CURRENT_DIR/dragonfly.log
 
 # topt -> tmux option
 set_topt() { tmux set -gq "$1" "$2"; }
@@ -22,9 +25,9 @@ DFMENUH=`get_topt @dfmenuh ^t`
 DFSS=`get_topt @dfss cacafire`
 DFSSH=`get_topt @dfssh ^l`
 df_intp=(
-	"#{pykma}=#(pykma%20lk)"
-	"#{pykmah}=#(pykma%20lh)"
-	"#{pykmax}=#(pykma%20xkb)"
+	"#{pykma}=#($CURRENT_DIR/../bin/pykma%20lk)"
+	"#{pykmah}=#($CURRENT_DIR/../bin/pykma%20lh)"
+	"#{pykmax}=#($CURRENT_DIR/../bin/pykma%20-D%20xkb)"
 	"#{dfmenuh}=$DFMENUH"
 	"#{dfssh}=$DFSSH"
 ) # Use interpol.py to interploate
@@ -42,6 +45,7 @@ tmux bind -N "DFMenu" -n $DFMENUH "run-shell $CURRENT_DIR/dfmenu.sh"
 tmux bind -N "DFScreanSaver (win0)" $DFSSH "neww -t 0 'DISPLAY= $DFSS'"
 
 #Pykma
-tmux bind \` "run \"pykma sw\""
-tmux bind  ё "run \"pykma sw\""
+PYKMA_RUN="run \"$CURRENT_DIR/../bin/pykma sw\""
+tmux bind \` "$PYKMA_RUN"
+tmux bind  ё "$PYKMA_RUN"
 

@@ -6,10 +6,15 @@ update, upd, init   - update cache
 ls, cat             - get cache (cooked/raw)
 add <opt>           - set cache value
 addt <opt>          - set cache value (+type)
-lsk, lk             - list key (cache)
+lsk, lk             - list layout/key (cache)
 lsh, lh             - list hotkey
-xset, xkb           - list key (X11 engene)
-h, help             - help page
+xset, xkb           - list layout (X11 engene)
+
+## Options
+-h, --help          - help page
+-v, --verbose       - verbose
+-D, --dry           - do not save result
+-H, --kbd=<val>     - force val layout
 
 ## Pykma output
 ~/.cache/pykma.cache structure: `{}` or `{"kbd": <kbd>, ".dbg": true, "layouts": [[<layout>, <shortcut>],]}`
@@ -50,7 +55,7 @@ def main(opts, args):
 				help(__name__)
 				return
 			case "-v" | "--verbose": verbose=True
-			case "-H" | "--kbd-en": kbd="en"
+			case "-H" | "--kbd": kbd=value
 
 	match args[0]:
 		case "sw":
@@ -113,9 +118,9 @@ def main(opts, args):
 					case "00000000": kbd = "en"
 					case "00001004": kbd = "ru"
 					case _: kbd = "--"
-			with open(FILE, "w") as f:
 				cache["kbd"] = kbd
-				f.write(json.dumps(cache))
+			if [elm for elm in ["-D", "--dry"] if elm in dict(opts).keys()]:
+				with open(FILE, "w") as f: f.write(json.dumps(cache))
 			if verbose: print(f"  xset raw out: sf_raw'{sf_raw}', sf_raw[0:8]'{sf_raw[0:8]}', kbd'{kbd}' \n  xset dict-ed out: py'{cache}', json'{json.dumps(cache)}'")
 			else: print(kbd)
 
@@ -145,6 +150,6 @@ def main(opts, args):
 
 if __name__ == "__main__":
 	import sys, getopt
-	main(*getopt.gnu_getopt(sys.argv[1:], "hvH", [
-		"help", "verbose", "kbd-en"
+	main(*getopt.gnu_getopt(sys.argv[1:], "hvH:D", [
+		"help", "verbose", "kbd:", "dry"
 	]))
