@@ -1,23 +1,29 @@
 # DragonFly Plug-in of tmux
 DragonFly Plug-in, or DFP - the other implementation of ~~letters~~ butterfly plugin
-Requite: crudini (python3-iniparse)
 It provide: 
 
 ## Contents of dfp
-  * interpol-dfp - quick `source tipical_tmux_plugin_helpers.sh; do_interpolate $(get_tmux_option "blah-blah-blah")`
-  * DFScreenSaver (Mod ^l) based on caca*
-  * Applets:
-  *  + #{pykma}, #{pykmah}, #{pykmax} - pykma's: layout, hotkey, x11-layout
-  *  + #{dfmenuh} - dfmenu hotkey (!IMPL)
-/*
-  * Menu about panel (^t) with $SCRIPT_DIR/apps/ ".desktop" files
-    /*
-  *   + Calendar
-  *   + Minishell
-  *   + Libcaca
-  *   + ^t hotkey
-    */
-*/
+  * [`interpol`](./bin/interpol
+  'Like do_interpolate, but simplefated')
+
+  * [`dfss`](./scripts/shared.sh
+  'Also known as DFScreenSaver; based on libcaca') (`Mod ^l`)
+
+
+  * [Applets](./scripts/shared.sh):
+     + [`#{pykma< |h|x>}`](./bin/pykma "pykma's: layout, hotkey, x11-layout")
+     + [`#{dfmenuh}`](./scripts/dfmenu.sh 'dfmenu hotkey')
+
+  * [Menu about panel](./scripts/dfmenu.sh) (`^t`) with [./apps/](./apps/)
+     + [`^t` hotkey](./scripts/dfmenu.sh 'Built-in')
+     + [Calendar](./apps/01-ncal 'ncal, yep')
+     + [Minishell](./apps/03-subshell '$SHELL used')
 
 ## Install
-    See on tipical tmux manual-installed plugin (becouse mercurial)
+See on tipical tmux manual-installed plugin (becouse [![!ico ](https://mercurial-scm.org/images/favicon.ico)mercurial](https://mercurial-scm.org))
+
+```sh
+$ cd .tmux && mkdir mplugins; cd mplugins  
+$ hg clone #<...>
+$ echo 'run "#{HOME}/.tmux/mplugins/dragonfly/dragonfly.tmux"' >> ~/.tmux.conf
+```

@@ -2,9 +2,5 @@
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 for i in `ls $CURRENT_DIR/apps/` ; do
-	I="$CURRENT_DIR/apps/$i"
-	dExec=`crudini --get $I 'Desktop Entry' Exec`
-	dName=`crudini --get $I 'Desktop Entry' Name`
-	dHK=`crudini --get $I 'Desktop Entry' Hotkey`
-	echo "'${dName}' '${dHK}' '${dExec}'"
+	echo `cat $CURRENT_DIR/apps/$i`
 done

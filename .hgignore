@@ -1,3 +1,2 @@
 syntax: glob
 scripts/dragonfly.log
-apps/*

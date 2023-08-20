@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo "    [new]" >> $CURRENT_DIR/dragonfly.log
+#echo "    [new]" >> $CURRENT_DIR/dragonfly.log
 PATH="$PATH:$CURRENT_DIR/../bin"
-echo "PATH=$PATH">> $CURRENT_DIR/dragonfly.log
-echo "BIN interpol=$(which interpol) pykma=$(which pykma) crudini=$(which crudini)">> $CURRENT_DIR/dragonfly.log
+#echo "PATH=$PATH">> $CURRENT_DIR/dragonfly.log
+#echo "BIN interpol=$(which interpol) pykma=$(which pykma)">> $CURRENT_DIR/dragonfly.log
 
 # topt -> tmux option
 set_topt() { tmux set -gq "$1" "$2"; }
@@ -11,13 +11,13 @@ get_topt() {
 	local GOPT=$1
 	if [ -z "$GOPT" ]; then echo ; fi
 	local GVAL=`tmux show -gqv "$GOPT"`
-	echo -n "GET \"$GOPT\" -> \"$GVAL\" OR \"$2\"; " >> $CURRENT_DIR/dragonfly.log
+	#echo -n "GET \"$GOPT\" -> \"$GVAL\" OR \"$2\"; " >> $CURRENT_DIR/dragonfly.log
 	if [ -z "$GVAL" ]; then
 		echo "$2"
-		echo "GET2" >> $CURRENT_DIR/dragonfly.log
+		#echo "GET2" >> $CURRENT_DIR/dragonfly.log
 	else
 		echo "$GVAL"
-		echo "GET1" >> $CURRENT_DIR/dragonfly.log
+		#echo "GET1" >> $CURRENT_DIR/dragonfly.log
 	fi
 }
 
@@ -35,8 +35,8 @@ upd_topt() {
 	local UOPT=$1
 	local UVAL=`get_topt $1`
 	local NVAL=`interpol "${UVAL}" ${df_intp[@]}`
-	echo "UPD \"${UOPT}\" -> \"${UVAL}\"" >> $CURRENT_DIR/dragonfly.log
-	echo " -> \"${NVAL}\"" >> $CURRENT_DIR/dragonfly.log
+	#echo "UPD \"${UOPT}\" -> \"${UVAL}\"" >> $CURRENT_DIR/dragonfly.log
+	#echo " -> \"${NVAL}\"" >> $CURRENT_DIR/dragonfly.log
 	set_topt "$1" "$NVAL"
 }
 
