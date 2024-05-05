@@ -1,0 +1,1 @@
+"panel-LEDs (py3)" "" "popup -x R -y S -w 29 -h 12 -E python3 -c \"input('''i-\n|\`- [Unused]\n\`-- i: online;  -: ofline ''')\""

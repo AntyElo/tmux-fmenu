@@ -1,29 +1,19 @@
-# DragonFly Plug-in of tmux
-DragonFly Plug-in, or DFP - the other implementation of ~~letters~~ butterfly plugin
-It provide: 
+# fmenu - fork of dragofly's ^t menu
 
-## Contents of dfp
-  * [`interpol`](./bin/interpol
-  'Like do_interpolate, but simplefated')
-
-  * [`dfss`](./scripts/shared.sh
-  'Also known as DFScreenSaver; based on libcaca') (`Mod ^l`)
-
-
-  * [Applets](./scripts/shared.sh):
-     + [`#{pykma< |h|x>}`](./bin/pykma "pykma's: layout, hotkey, x11-layout")
-     + [`#{dfmenuh}`](./scripts/dfmenu.sh 'dfmenu hotkey')
-
-  * [Menu about panel](./scripts/dfmenu.sh) (`^t`) with [./apps/](./apps/)
-     + [`^t` hotkey](./scripts/dfmenu.sh 'Built-in')
-     + [Calendar](./apps/01-ncal 'ncal, yep')
-     + [Minishell](./apps/03-subshell '$SHELL used')
+[Menu about panel](./scripts/dfmenu.sh) with [./apps/](./apps/) contain:
+   + [`^t` hotkey](./scripts/dfmenu.sh 'Built-in')
+   + [Calendar](./apps/01-ncal 'ncal, yep')
+   + [Minishell](./apps/03-subshell '$SHELL used')
 
 ## Install
-See on tipical tmux manual-installed plugin (becouse [![!ico ](https://mercurial-scm.org/images/favicon.ico)mercurial](https://mercurial-scm.org))
+See on tipical tmux manual-installed plugin (becouse [![* ](https://mercurial-scm.org/images/favicon.ico)mercurial](https://mercurial-scm.org))
 
 ```sh
-$ cd .tmux && mkdir mplugins; cd mplugins  
-$ hg clone #<...>
-$ echo 'run "#{HOME}/.tmux/mplugins/dragonfly/dragonfly.tmux"' >> ~/.tmux.conf
+$ cd .tmux && { mkdir mplugins; cd mplugins }  
+$ hg clone #<http://hg.unknownhosting.org/user/fmenu>
+$ echo 'run "#{HOME}/.tmux/mplugins/fmenu/fmenu.tmux"' >> ~/.tmux.conf
 ```
+
+## Options
+&lt;option&gt;(&lt;default value&gt;): &lt;description&gt;  
+@fmenu-hotkey(^t): hotkey for call fmenu   
