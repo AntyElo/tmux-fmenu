@@ -9,4 +9,4 @@ tmux bind -N "fmenu" -n `tmux_oget @fmenu-hotkey C-t` "run-shell $CURRENT_DIR/me
 PAIRS = (
 "#{fmenu-hotkey}/`tmux_oget @fmenu-hotkey C-t`"
 )
-tmux_oupd status-right
+tmux_upd_status

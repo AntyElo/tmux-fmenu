@@ -8,7 +8,7 @@ tmux_oset() { tmux set -gq "$1" "$2"; }
 
 #tmux_oget <opt> [<default_value>]
 tmux_oget() {
-	if [ -z "$1" ]; then return; fi
+	[ -z "$1" ] && return 1
 	local V=`tmux show -gqv "$1"`
 	test -z "$V" && echo "$2" || echo "$V"
 }
@@ -16,6 +16,7 @@ tmux_oget() {
 #tmux_oupd <opt> <pair: "<old>/<new>"> {<pair>}
 #tmux_oupd <opt> ${LIST_OF_PAIRS[@]}
 tmux_oupd() {
+	[ -z "$1" ] && return 1
 	local A=($@)
 	local V=`tmux_oget $1`
 	for P in `seq 1 $(($#-1))` ; do
@@ -24,3 +25,26 @@ tmux_oupd() {
 	done
 	tmux_oset "$1" "$V"
 }
+
+#tmux_upd_status $A #alias for: tmux_oupd status-right $A && <...>
+tmux_upd_status() {
+	[ -z "$1" ] && return 1
+	tmux_oupd status-right "$1"
+	tmux_oupd status-left  "$1"
+}
+
+# Main part; for shell:
+# $PATH_TO_FILE/base us #\{uwu\}/^_^
+main() {
+	[ "$#" -le 1 ] && return
+	local B=($@)
+	local A=()
+	for E in `seq 1 $(($#-1))`; do A+=(${B[$E]}); done
+	case $1 in
+		s|oset) tmux_oset ${A[@]} ;;
+		g|oget) tmux_oget ${A[@]} ;;
+		u|oupd) tmux_oupd ${A[@]} ;;
+		us|upd_status) tmux_oupd_status ${A[@]} ;;
+	esac
+}
+main $@
