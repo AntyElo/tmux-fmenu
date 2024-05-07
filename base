@@ -29,12 +29,12 @@ tmux_oupd() {
 #tmux_upd_status $A #alias for: tmux_oupd status-right $A && <...>
 tmux_upd_status() {
 	[ -z "$1" ] && return 1
-	tmux_oupd status-right "$1"
-	tmux_oupd status-left  "$1"
+	tmux_oupd status-right "$@"
+	tmux_oupd status-left  "$@"
 }
 
 # Main part; for shell:
-# $PATH_TO_FILE/base us #\{uwu\}/^_^
+# $PATH_TO_FILE/base us #{uwu}/^_^
 main() {
 	[ "$#" -le 1 ] && return
 	local B=($@)
