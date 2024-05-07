@@ -10,18 +10,21 @@ tmux_oset() { tmux set -gq "$1" "$2"; }
 tmux_oget() {
 	[ -z "$1" ] && return 1
 	local V=`tmux show -gqv "$1"`
-	test -z "$V" && echo "$2" || echo "$V"
+	[ -z "$V" ] && echo "$2" || echo "$V"
 }
 
 #tmux_oupd <opt> <pair: "<old>/<new>"> {<pair>}
 #tmux_oupd <opt> ${LIST_OF_PAIRS[@]}
 tmux_oupd() {
 	[ -z "$1" ] && return 1
-	local A=($@);unset A[0]
 	local V=`tmux_oget $1`
+	local A=($@);unset A[0]
+	local S= R=
 	for P in ${A[@]} ; do
-		V=`echo "$V" | sed "s/$P/g"`
+		IFS="/" read S R <<< $P
+		V=${V//$S/$R}
 	done
+	V=${V//%20/\ }
 	tmux_oset "$1" "$V"
 }
 
