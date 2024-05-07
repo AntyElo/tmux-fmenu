@@ -6,7 +6,7 @@ source "$CURRENT_DIR/base"
 tmux bind -N "fmenu" -n `tmux_oget @fmenu-hotkey C-t` "run-shell $CURRENT_DIR/menu"
 
 # update
-PAIRS = (
+PAIRS=(
 "#{fmenu-hotkey}/`tmux_oget @fmenu-hotkey C-t`"
 )
-tmux_upd_status
+tmux_upd_status ${PAIRS[@]}}
