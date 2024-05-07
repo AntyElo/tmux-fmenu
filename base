@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Base script for your tmux plug-ins
 # Enable it with:
 #source /path/to/this/file
