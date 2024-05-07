@@ -1,4 +1,5 @@
-# fmenu - the C-t menu
+# tmux-fmenu - the C-t menu
+Uses hggit (/!\)
 
 [Menu about panel](./scripts/dfmenu.sh) with [./apps/](./apps/)
  that contain [`'send C-t hotkey' ](./scripts/dfmenu.sh 'Built-in'),
