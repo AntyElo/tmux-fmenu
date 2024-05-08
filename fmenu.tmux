@@ -9,6 +9,6 @@ tmux bind -N "fmenu" -n `tmux_oget @fmenu-hotkey ^t` "run-shell $CURRENT_DIR/men
 # update
 PAIRS=(
 	"#{fmenu-hotkey-static}=`tmux_oget @fmenu-hotkey ^t`"
-	"#{fmenu-hotkey}=#($CURRENT_ESC\/base%20g%20@fmenu-hotkey%20^t)"
+	"#{fmenu-hotkey}=#($CURRENT_ESC\/base g @fmenu-hotkey ^t)"
 )
 tmux_upd_status ${PAIRS[@]}

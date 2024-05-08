@@ -6,7 +6,7 @@ Uses hggit ( /!\ )
  [Calendar](./apps/01-ncal 'ncal, yep'),
  [Minishell](./apps/03-subshell '$SHELL used'),
  [LEDs Cheat Sheat](./apps/04-ledcs "python3 for input\(f'{Message}'\) "),
- commands
+ commands (put ~ to end of filename to hide)
 
 ## Install
 See on tipical tmux manual-installed plugin
@@ -19,9 +19,9 @@ $ echo 'run "#{HOME}/.tmux/hg/fmenu/fmenu.tmux"' >> ~/.tmux.conf
 ```
 
 ## @Options and #Indicators
-|Property     |Def* |Description          |
-|-------------|-----|---------------------|
-|@fmenu-hotkey|C-t  |hotkey for call fmenu|
-|#{fmenu-hotkey}  | -   |hotkey for call fmenu|
+|Property          |Def*   |Description                                        |
+|------------------|-------|---------------------------------------------------|
+|@fmenu-hotkey     |C-t    |hotkey for call fmenu (exemple of ./base g)        |
+|#{fmenu-hotkey}   | -     |hotkey for call fmenu (exemple of ./base su)       |
 
 *Default value

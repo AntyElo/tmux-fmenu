@@ -24,7 +24,8 @@ tmux_oupd() {
 		IFS="=" read S R <<< $P
 		V=${V//$S/$R}
 	done
-	V=${V//%20/\ }
+	#Use nbsp xA0 (Press ^U)
+	V=${V// /\ }
 	tmux_oset "$1" "$V"
 }
 
