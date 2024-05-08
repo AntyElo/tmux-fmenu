@@ -1,12 +1,12 @@
 # tmux-fmenu - the C-t menu
 Uses hggit ( /!\ )
 
-[Menu about panel](./scripts/dfmenu.sh) with [./apps/](./apps/)
- that contain [`'send C-t hotkey' ](./scripts/dfmenu.sh 'Built-in'),
+[Menu about panel](./menu) with [./apps/](./apps/)
+ that contain [`'send C-t hotkey' ](./menu 'Built-in'),
  [Calendar](./apps/01-ncal 'ncal, yep'),
  [Minishell](./apps/03-subshell '$SHELL used'),
  [LEDs Cheat Sheat](./apps/04-ledcs "python3 for input\(f'{Message}'\) "),
- commands (put ~ to end of filename to hide)
+ <a title="(put ~ to end of filename to hide)"> commands </a>
 
 ## Install
 See on tipical tmux manual-installed plugin
@@ -22,6 +22,6 @@ $ echo 'run "#{HOME}/.tmux/hg/fmenu/fmenu.tmux"' >> ~/.tmux.conf
 |Property          |Def*   |Description                                        |
 |------------------|-------|---------------------------------------------------|
 |@fmenu-hotkey     |C-t    |hotkey for call fmenu (exemple of ./base g)        |
-|#{fmenu-hotkey}   | -     |hotkey for call fmenu (exemple of ./base su)       |
+|#{fmenu-hotkey}   | -     |hotkey for call fmenu (exemple of ./base us)       |
 
-*Default value
+* Default value
