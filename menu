@@ -6,5 +6,7 @@ P=""
 for i in $(ls $CURRENT_DIR/apps/) ; do
     [[ "$i" = *\~ ]] || P="$P `cat $CURRENT_DIR/apps/$i`"
 done
-P="tmux menu -T fmenu -x P -y S $P"
-bash -c "$P"
+
+P="tmux menu -T fmenu -x P -y S ${P//\$SIZE/'-w 29 -h 5'}"
+echo "$P"
+#bash -c "$P"

@@ -7,8 +7,6 @@ source "$CURRENT_DIR/base"
 tmux bind -N "fmenu" -n `tmux_oget @fmenu-hotkey ^t` "run-shell $CURRENT_DIR/menu"
 
 # update
-PAIRS=(
-	"#{fmenu-hotkey-static}=`tmux_oget @fmenu-hotkey ^t`"
+tmux_upd_status \
+	"#{fmenu-hotkey-static}=`tmux_oget @fmenu-hotkey ^t`"      \
 	"#{fmenu-hotkey}=#($CURRENT_ESC\/base g @fmenu-hotkey ^t)"
-)
-tmux_upd_status ${PAIRS[@]}
