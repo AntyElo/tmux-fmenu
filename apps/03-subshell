@@ -1,1 +1,1 @@
-"Subshell" "" "popup -x R -y S $SIZE -E $SHELL"
+"Subshell" "" "popup  $SP -E $SHELL"

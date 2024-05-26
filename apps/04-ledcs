@@ -1,1 +1,1 @@
-"panel-LEDs (py3)" "" "popup -x R -y S $SIZE -E python3 -c \"vl='│';input(f'''i{vl}  i: online;  -: ofline \n-{vl}  -: [unused]''')\""
+"status LEDs" "" "popup $SP echo -e 'i│  i: online;  -: ofline \n-│  -: [unused]'"
