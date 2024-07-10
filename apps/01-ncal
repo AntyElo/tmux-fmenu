@@ -1,1 +1,1 @@
-"Calendar (ncal)" "" "popup $SP ncal -bw"
+"Calendar (ncal)" "c" "popup $SP ncal -bw"

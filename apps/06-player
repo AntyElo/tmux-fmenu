@@ -1,0 +1,1 @@
+"run music player" 'a' "splitw \"which ncmpcpp && ncmpcpp || which ncmpc && ncmpc || which mocp && mocp \""

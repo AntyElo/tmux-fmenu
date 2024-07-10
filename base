@@ -1,48 +1,78 @@
 #!/usr/bin/env bash
 # Base script for your tmux plug-ins
-# Enable it with:
+# Enable it in your shell script with:
 #source /path/to/this/file
 
 #tmux_oset <opt> <new_value>
+#NAME="<my-plugin>"; tmux_oset @$NAME@<opt> <new_value>
 tmux_oset() { tmux set -gq "$1" "$2"; }
 
 #tmux_oget <opt> [<default_value>]
+#NAME="<my-pluin>"; tmux_oget @$NAME@<opt> [<default_value>]
 tmux_oget() {
-	[ "$#" -lt 1 ] && return 1
-	local V=`tmux show -gqv "$1"`
-	[ -z "$V" ] && echo "$2" || echo "$V"
+    [ "$#" -lt 1 ] && return 1
+    local V=`tmux show -gqv "$1"`
+    [ -z "$V" ] && echo "$2" || echo "$V"
 }
 
-#tmux_oupd <opt> <pattern> <replacement> {<pattern> <replacement>}
-#tmux_oupd <opt> ${LIST_OF_PAIRS[@]}
+#tmux_oupd <opt> {<pattern> <replacement>}
+#eval "tmux_oupd <opt> ${C}"
 tmux_oupd() {
-	[ "$#" -lt 1 ] && return 1
-	local V=`tmux_oget $1`
-	local A=($@); unset A[0]
-	for i in `seq 1 $(((${#A[@]}+1)/2))` ; do
-		V=${V//"${A[$((2*i-1))]}"/"${A[$((2*i))]}"}
-	done
-	V=${V// /\ } #Use nbsp xA0 (Press ^U)
-	tmux_oset "$1" "$V"
+    [ "$#" -lt 1 ] && return 1
+    local V=`tmux_oget $1`
+    local P=""
+    local R=""
+    local A=("$@"); unset A[0]
+    for i in `seq 1 $(((${#A[@]}+1)/2))` ; do
+        P="${A[$((2*i-1))]}"
+        R="${A[$((2*i))]}"
+        #V=`echo "$V" | sed "s/$P/$R/g"`
+        V=${V//"${A[$((2*i-1))]}"/"${A[$((2*i))]}"}
+    done
+    V=${V// /\ } #Use nbsp xA0 (Press ^U)
+    tmux_oset "$1" "$V"
 }
 
 #tmux_upd_status ${LIST_OF_PAIRS[@]}
 tmux_upd_status() {
-	[ "$#" -lt 1 ] && return 1
-	tmux_oupd status-right "$@"
-	tmux_oupd status-left  "$@"
+    [ "$#" -lt 1 ] && return 1
+    local C=''; for i in "${@}" ; do C="${C}\"$i\" "; done
+    eval "tmux_oupd status-right ${C}"
+    eval "tmux_oupd status-left ${C}"
 }
 
 # Main part; for shell:
-# $PATH_TO_FILE/base us #{uwu}=^_^
-main() {
-	[ "$#" -lt 2 ] && return
-	local A=($@);unset A[0]
-	case $1 in
-		s|oset) tmux_oset ${A[@]} ;;
-		g|oget) tmux_oget ${A[@]} ;;
-		u|oupd) tmux_oupd ${A[@]} ;;
-		us|upd_status) tmux_oupd_status ${A[@]} ;;
-	esac
-}
-main $@
+# $PATH_TO_FILE/base us "#{uwu}" "^_^""
+[ "$#" -eq 1 ] && echo -e "\
+Usage: base <command>
+Commands:
+    (s|oset) [@<plugin_name>@]<opt> <value>     # Set tmux option
+    (g|oget) <opt> [<default>]                  # Get tmux option
+    (u|oupd) <opt> {<pattern> <replacement>}    # Update tmux option via sed
+    (us|upd_status) {<pattern> <replacement>}   # Update tmux statusbar
+
+Exemples:
+    base g editor
+        # Get prefered editor name
+
+    base s mouse off
+        # Disable mouse support
+
+    base u status 5 4 4 3 3 2 2 on on off
+        # Decrise statusbar heght to one
+
+    base us #{uwu} ^_^
+        # Replace #{uwu} to ^_^ in statusbar"
+if [ "$#" -gt 1 ] ; then
+    _A=("${@}");unset _A[0]; _C=''
+    for i in "${_A[@]}" ; do _C="${_C}\"$i\" "; done
+    case "$1" in
+        s|oset) _C="tmux_oset ${_C}" ;;
+        g|oget) _C="tmux_oget ${_C}" ;;
+        u|oupd) _C="tmux_oupd ${_C}" ;;
+        us|upd_status) _C="tmux_upd_status ${_C}"  ;;
+        ' '|l|log) _C="echo ${_C}" ;;
+    esac
+    eval  ${_C}
+    unset _A _C
+fi
