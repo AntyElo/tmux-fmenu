@@ -9,8 +9,7 @@
  <a title="(put ~ to end of filename to hide)"> commands </a>
 
 ## Install
-This plugin use [![* ](https://mercurial-scm.org/images/favicon.ico)Mercurial SCM](https://mercurial-scm.org),
-and can be installed as a script:
+This plugin can be installed as a script:
 
 ```
 mkdir -p ~/.tmux/manual/
