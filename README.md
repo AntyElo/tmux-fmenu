@@ -1,5 +1,5 @@
 # tmux-fmenu - the C-t menu
-Uses hggit ( /!\ )
+(Uses hggit)
 
 [Menu about panel](./menu) with [./apps/](./apps/)
  that contain [`'send C-t hotkey' ](./menu 'Built-in'),
@@ -9,19 +9,26 @@ Uses hggit ( /!\ )
  <a title="(put ~ to end of filename to hide)"> commands </a>
 
 ## Install
-See on tipical tmux manual-installed plugin
- (becouse [![* ](https://mercurial-scm.org/images/favicon.ico)mercurial](https://mercurial-scm.org))
+This plugin use [![* ](https://mercurial-scm.org/images/favicon.ico)Mercurial SCM](https://mercurial-scm.org),
+and can be installed as a script:
 
-```sh
-$ cd .tmux && { mkdir hg; cd hg }  
-$ hg clone #<http://hg.unknownhosting.org/user/fmenu>
-$ echo 'run "#{HOME}/.tmux/hg/fmenu/fmenu.tmux"' >> ~/.tmux.conf
 ```
+mkdir -p ~/.tmux/manual/
+cd ~/.tmux/manual/
+hg clone #<this-repo-hg>
+echo 'run "#{HOME}/.tmux/manual/fmenu/fmenu.tmux"' >> ~/.tmux.conf
+```
+
+or via Tmux Plugin Manager, on ~/.tmux.conf:
+```
+set -g @plugin "AntyElo/dragonfly"
+```
+
 
 ## @Options and #Indicators
 |Property          |Def*   |Description                                        |
-|------------------|-------|---------------------------------------------------|
-|@fmenu-hotkey     |C-t    |hotkey for call fmenu (exemple of ./base g)        |
+|:-----------------|:------|:--------------------------------------------------|
+|@fmenu@hotkey     |C-t    |hotkey for call fmenu (exemple of ./base g)        |
 |#{fmenu-hotkey}   | -     |hotkey for call fmenu (exemple of ./base us)       |
 
-* Default value
+\* Default value
