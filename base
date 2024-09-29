@@ -43,7 +43,7 @@ tmux_upd_status() {
 
 # Main part; for shell:
 # $PATH_TO_FILE/base us "#{uwu}" "^_^""
-[ "$#" -eq 1 ] && echo -e "\
+[ "$#" -eq 1 ] && cat <<CATEND
 Usage: base <command>
 Commands:
     (s|oset) [@<plugin_name>@]<opt> <value>     # Set tmux option
@@ -62,7 +62,8 @@ Exemples:
         # Decrise statusbar heght to one
 
     base us #{uwu} ^_^
-        # Replace #{uwu} to ^_^ in statusbar"
+        # Replace #{uwu} to ^_^ in statusbar
+CATEND
 if [ "$#" -gt 1 ] ; then
     _A=("${@}");unset _A[0]; _C=''
     for i in "${_A[@]}" ; do _C="${_C}\"$i\" "; done

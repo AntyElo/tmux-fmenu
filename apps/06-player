@@ -1,1 +1,1 @@
-"run music player" 'a' "splitw \"which ncmpcpp && ncmpcpp || which ncmpc && ncmpc || which mocp && mocp \""
+"run music player" 'a' 'splitw "ew() { if which $1; then $1; return 0; else return 1; fi; }; ew ncmpcpp || ew ncmpc || ew mocp"'

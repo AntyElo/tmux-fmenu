@@ -1,1 +1,4 @@
-"status LEDs" "l" "popup $SP echo -e 'i│  i: online;  -: ofline \n-│  -: [unused]'"
+"status LEDs" "l" "popup $SP echo '\
+-i │ off-line / on-line
+-  │ unused 
+'"

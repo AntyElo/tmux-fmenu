@@ -1,12 +1,7 @@
 # tmux-fmenu - the C-t menu
 (Uses hggit)
 
-[Menu about panel](./menu) with [./apps/](./apps/)
- that contain [`'send C-t hotkey' ](./menu 'Built-in'),
- [Calendar](./apps/01-ncal 'ncal, yep'),
- [Minishell](./apps/03-subshell '$SHELL used'),
- [LEDs Cheat Sheat](./apps/04-ledcs "python3 for input\(f'{Message}'\) "),
- <a title="(put ~ to end of filename to hide)"> commands </a>
+Menu about panel] with ./apps/ - little goodies
 
 ## Install
 This plugin can be installed as a script:
@@ -25,9 +20,10 @@ set -g @plugin "AntyElo/dragonfly"
 
 
 ## @Options and #Indicators
-|Property          |Def*   |Description                                        |
-|:-----------------|:------|:--------------------------------------------------|
-|@fmenu@hotkey     |C-t    |hotkey for call fmenu (exemple of ./base g)        |
-|#{fmenu-hotkey}   | -     |hotkey for call fmenu (exemple of ./base us)       |
+|Property           |Def*   |Description                                        |
+|:------------------|:------|:--------------------------------------------------|
+|@fmenu@hotkey      |C-t    |hotkey for call fmenu (exemple of ./base g)        |
+|@fmenu@screensaver |       |binary to show screensaver in fmenu>screensaver    |
+|#{fmenu-hotkey}    | -     |hotkey for call fmenu (exemple of ./base us)       |
 
 \* Default value
