@@ -24,10 +24,9 @@ tmux_oupd() {
     shift
     while [ -n "$1" ]
     do
-        V=${V//"$1"/"$2"}
+        V="${V//"$1"/"$2"}"
         shift 2
     done
-    V=${V// /\ } #Use nbsp xA0 (Press ^U)
     tmux_oset "${NAME}" "$V"
 }
 
