@@ -1,1 +1,1 @@
-"Subshell" "s" "popup  $SP -E $SHELL"
+"Subshell" "s" "popup  %s -E $SHELL"
