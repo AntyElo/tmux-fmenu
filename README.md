@@ -1,6 +1,6 @@
 # tmux-fmenu - the C-t menu
 
-Menu about panel with little goodies (script strings), `./apps/`.
+Menu about panel with little goodies (script strings) in `Apps`.
 
 ## Install
 This plugin can be installed as a script:
