@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+export MENU=(
+'Send fmenu hotkey' ^t 'send ^t'
+"Calendar (ncal)" "c" "popup %s ncal -bw"
+""
+"Subshell" "s" "popup  %s -E $SHELL"
+"status LEDs" "l" "popup %s echo '\
+-i │ off-line / on-line
+-  │ unused 
+'"
+"tmux messages" 'm' "showmsgs"
+"run music player" 'a' 'splitw "ew() { if which $1; then $1; return 0; else return 1; fi; }; ew ncmpcpp || ew ncmpc || ew mocp"'
+"ascii-screensaver" "w" "neww -t 0 '$(tmux show -gqv @fmenu@screensaver)'"
+"grim" "g" "run 'grim ~/grim.png'"
+)

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$CURRENT_DIR/base"
 
-P=""
-for i in $(ls $CURRENT_DIR/apps/) ; do
-    [[ ! "$i" = *\~ ]] && P="$P `cat $CURRENT_DIR/apps/$i`"
-done
+if [ ! -f "$CURRENT_DIR/Apps" ]
+then cp "$CURRENT_DIR/App.example" "$CURRENT_DIR/Apps"
+fi
 
-tmux menu -T fmenu -x P -y S "${P//%s/"-w 29 -h 11 -x P -y S"}"
-unset P
+source "$CURRENT_DIR/Apps"
+
+tmux menu -T fmenu -x P -y S "${MENU[@]//%s/"-w 29 -h 11 -x P -y S"}"
+unset CURRENT_DIR MENU

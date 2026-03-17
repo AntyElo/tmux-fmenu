@@ -12,7 +12,7 @@ tmux_oset() { tmux set -gq "$1" "$2"; }
 tmux_oget() {
     [ "$#" -lt 1 ] && (echo "tmux_oget:noname!"; return 1)
     local V="$(tmux show -gqv "$1")"
-    echo "${V:-$2}"
+    echo "${V:-"$2"}"
 }
 
 #tmux_oupd <opt> {<pattern> <replacement>}
@@ -20,7 +20,7 @@ tmux_oget() {
 tmux_oupd() {
     [ "$#" -lt 1 ] && return 1
     local NAME="$1"
-    local V="$(tmux_oget ${NAME})"
+    local V="$(tmux_oget "${NAME}")"
     shift
     while [ -n "$1" ]
     do
